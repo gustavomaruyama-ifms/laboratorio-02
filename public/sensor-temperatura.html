@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulador de sensor de temperatura</title>
+</head>
+<body>
+<h4>Simulador de sensor de temperatura</h4>
+<div id="temperaturas">
+
+</div>
+<div>
+    
+</div>
+</body>
+    <script>		
+        function enviarMensagem(){
+            // Gera uma temperatura entre 25 a 34 graus celsius
+            const valor = Math.floor(Math.random() * (34-25)) + 25;
+
+            // Monta o objeto que será enviado ao servidor
+			const dados = {
+                nome: "Temperatura",
+                valor: valor
+            };
+		
+            // Configuração da requisição HTTP
+			const options = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(dados)
+			}
+			
+            // Realiza a requisição
+			fetch('http://localhost:3000/temperatura', options)
+                .then((response)=>{
+                     // Caso consiga enviar os dados, é impresso a temperatura no HTML
+                     document.getElementById('temperaturas').innerHTML += '<p>'+dados.valor+' °C</p>';
+                });
+			
+        }
+
+        // Envia a temperatura a cada 10000 milissegundos 
+        setInterval(enviarMensagem,10000);
+
+    </script>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cliente - HTTP</title>
+</head>
+<body>
+<h4>Cliente - HTTP</h4>
+<div id="mensagens">
+
+</div>
+<div>
+	<button onclick="receberMensagem()">Receber</button>
+</div>
+</body>
+    <script>	
+        function receberMensagem(){
+            console.log("Requisição enviada");			
+			fetch('http://localhost:3000/temperatura')
+				.then(T => T.json())
+				.then(callback)
+        }
+
+        function callback(dados){
+            document
+				.getElementById('mensagens')
+				.innerHTML += '<p>'+dados.nome+' : '+dados.valor+' °C</p>';
+        }
+    </script>
+</html>
